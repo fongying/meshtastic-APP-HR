@@ -2,10 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="com.geeksville.mesh.permission.BIND_MESH_SERVICE" />
-    <queries>
-        <package android:name="com.geeksville.mesh" />
-    </queries>
+    <!-- Android 11 以下掃描需要定位權限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30"/>
+
+    <!-- Android 12+ 的 BLE 權限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+
+    <!-- 前景服務 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!-- Android 14+ 建議註明類型 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE"/>
+
+    <!-- Android 13+ 若會顯示前景通知 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:targetApi="33"/>
+
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false"/>
 
     <application
         android:allowBackup="true"
@@ -22,10 +37,13 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".ble.BleForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice"/>
     </application>
 
 </manifest>

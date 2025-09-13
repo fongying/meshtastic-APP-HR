@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.coil)
     "googleImplementation"(libs.bundles.datadog)
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     ksp(libs.hilt.compiler)
     implementation(libs.kotlinx.serialization.json)
     detektPlugins(libs.detekt.formatting)

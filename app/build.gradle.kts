@@ -231,6 +231,7 @@ dependencies {
     implementation(libs.bundles.hilt)
     implementation(libs.bundles.protobuf)
     implementation(libs.bundles.coil)
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     // OSM
     "fdroidImplementation"(libs.bundles.osm)
