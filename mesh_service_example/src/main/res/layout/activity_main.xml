@@ -1,131 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2025 Meshtastic LLC
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  -->
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <!-- 標題 -->
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/serviceStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Meshtastic Node Info"
+        android:text="Service Status: Disconnected"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nodeInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Node Info: N/A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/serviceStatus" />
+
+    <TextView
+        android:id="@+id/hr_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Live Heart Rate:"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/nodeInfo" />
 
-    <!-- 顯示一般狀態/訊息 -->
     <TextView
-        android:id="@+id/mainTextView"
+        android:id="@+id/hr_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ready"
-        android:textSize="16sp"
-        android:paddingTop="6dp"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginStart="8dp"
+        android:text="--"
+        android:textColor="@color/purple_500"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/hr_text"
+        app:layout_constraintStart_toEndOf="@id/hr_text" />
 
-
-    <!-- 顯示連線/服務狀態的小色塊（示意） -->
-    <ImageView
-        android:id="@+id/statusImageView"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@android:color/holo_red_light"
-        app:layout_constraintBottom_toTopOf="@id/titleTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="12dp"/>
-
-    <!-- HR 顯示 -->
     <TextView
-        android:id="@+id/hrTextView"
+        android:id="@+id/label_last_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HR: -- bpm"
-        android:textSize="18sp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/mainTextView"
-
+        android:layout_marginTop="8dp"
+        android:text="Last Received Message:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/hr_text" />
 
-    <!-- 掃描中的小圈圈 -->
-    <ProgressBar
-        android:id="@+id/scanProgress"
-        style="?android:attr/progressBarStyleSmall"
+    <TextView
+        android:id="@+id/lastMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="N/A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_last_message" />
+
+    <!-- Container for Buttons -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lastMessage">
+
+        <Button
+            android:id="@+id/sendBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send Hello Message (Test Comm.)" />
+
+        <Button
+            android:id="@+id/sosBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:text="SOS (Current Status: OFF)"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/testBtn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="[TEST] Send HR:29, SOS:True" />
+
+        <Button
+            android:id="@+id/testBtn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="[TEST] Send HR:38, SOS:False" />
+
+    </LinearLayout>
+
+    <!-- Interval Selector -->
+    <TextView
+        android:id="@+id/intervalLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/hrTextView"
+        android:text="Auto Broadcast Interval (min):"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/buttonContainer" />
 
-    <!-- 下拉刷新容器，包住 RecyclerView -->
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
+    <Spinner
+        android:id="@+id/intervalSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/intervalLabel"
+        app:layout_constraintTop_toTopOf="@id/intervalLabel"
+        app:layout_constraintBottom_toBottomOf="@id/intervalLabel"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ble_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/scanProgress"
-        app:layout_constraintBottom_toTopOf="@id/sendBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bleRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            tools:listitem="@layout/item_ble_device"/>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <!-- 發送測試訊息 -->
-    <Button
-        android:id="@+id/sendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/send_hello_message"
-        app:layout_constraintBottom_toTopOf="@id/sosBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp"/>
-
-    <!-- SOS -->
-    <Button
-        android:id="@+id/sosBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SOS"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/intervalSpinner"
+        tools:listitem="@layout/item_ble_device" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
